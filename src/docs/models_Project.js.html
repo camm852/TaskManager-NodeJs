@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>models/Project.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-config_db.html">config/db</a><ul class='methods'><li data-type='method'><a href="module-config_db.html#~connectionDB">connectionDB</a></li></ul></li><li><a href="module-controllers_userController.html">controllers/userController</a><ul class='methods'><li data-type='method'><a href="module-controllers_userController.html#~checkToken">checkToken</a></li><li data-type='method'><a href="module-controllers_userController.html#~confirm">confirm</a></li><li data-type='method'><a href="module-controllers_userController.html#~forgotPassword">forgotPassword</a></li><li data-type='method'><a href="module-controllers_userController.html#~login">login</a></li><li data-type='method'><a href="module-controllers_userController.html#~newPassword">newPassword</a></li><li data-type='method'><a href="module-controllers_userController.html#~signUp">signUp</a></li></ul></li><li><a href="module-project-controller.html">project-controller</a><ul class='methods'><li data-type='method'><a href="module-project-controller.html#~addCollaborator">addCollaborator</a></li><li data-type='method'><a href="module-project-controller.html#~deleteCollaborator">deleteCollaborator</a></li><li data-type='method'><a href="module-project-controller.html#~deleteProject">deleteProject</a></li><li data-type='method'><a href="module-project-controller.html#~editProject">editProject</a></li><li data-type='method'><a href="module-project-controller.html#~getProject">getProject</a></li><li data-type='method'><a href="module-project-controller.html#~getProjects">getProjects</a></li><li data-type='method'><a href="module-project-controller.html#~newProject">newProject</a></li><li data-type='method'><a href="module-project-controller.html#~searchCollaborator">searchCollaborator</a></li></ul></li><li><a href="module-routes_projectRoutes.html">routes/projectRoutes</a></li><li><a href="module-routes_taskRoutes.html">routes/taskRoutes</a></li><li><a href="module-routes_userRoutes.html">routes/userRoutes</a></li><li><a href="module-task-controller.html">task-controller</a><ul class='methods'><li data-type='method'><a href="module-task-controller.html#~changeStateTask">changeStateTask</a></li><li data-type='method'><a href="module-task-controller.html#~deleteTask">deleteTask</a></li><li data-type='method'><a href="module-task-controller.html#~getTask">getTask</a></li><li data-type='method'><a href="module-task-controller.html#~newTask">newTask</a></li><li data-type='method'><a href="module-task-controller.html#~udpateTask">udpateTask</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#checkAuth">checkAuth</a></li><li><a href="global.html#generateId">generateId</a></li><li><a href="global.html#generateJWT">generateJWT</a></li><li><a href="global.html#projectSchema">projectSchema</a></li><li><a href="global.html#taskScheema">taskScheema</a></li><li><a href="global.html#userSchema">userSchema</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">models/Project.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import mongoose from 'mongoose';
+
+/**
+ *
+ * @typedef {Object} Project
+ * @property {string} name project name
+ * @property {string} description project description
+ * @property {date} date project creation date
+ * @property {string} customer project customer
+ * @property {User} creator project creator type User
+ * @property {User} collaborators project collaborators type User
+ */
+
+/**
+ * @type {Project}
+ */
+const projectSchema = mongoose.Schema(
+	{
+		name: {
+			type: String,
+			trim: true,
+			required: true,
+		},
+		description: {
+			type: String,
+			trim: true,
+			required: true,
+		},
+		datePicker: {
+			type: Date,
+			default: Date.now(),
+		},
+		customer: {
+			type: String,
+			trim: true,
+			required: true,
+		},
+		creator: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'User',
+		},
+		tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Task' }],
+		collaborators: [
+			{
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'User',
+			},
+		],
+	},
+	{
+		timestamps: true,
+	}
+);
+
+/*
+  is for reference to user colection
+      type: mongoose.Schema.Types.ObjectId,
+			ref: 'User',
+*/
+
+const Project = mongoose.model('Project', projectSchema);
+
+export default Project;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Sat Aug 06 2022 16:28:00 GMT-0500 (hora estándar de Colombia) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>
