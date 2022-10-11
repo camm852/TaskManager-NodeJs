@@ -3,5 +3,5 @@ node_modules
 .dockerignore
 *.yml
 Dockerfile
-docs
+../docs/
 package-lock.json
