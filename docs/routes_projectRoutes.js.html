@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>routes/projectRoutes.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-project-controller.html">project-controller</a><ul class='methods'><li data-type='method'><a href="module-project-controller.html#~addCollaborator">addCollaborator</a></li><li data-type='method'><a href="module-project-controller.html#~deleteCollaborator">deleteCollaborator</a></li><li data-type='method'><a href="module-project-controller.html#~deleteProject">deleteProject</a></li><li data-type='method'><a href="module-project-controller.html#~editProject">editProject</a></li><li data-type='method'><a href="module-project-controller.html#~getProject">getProject</a></li><li data-type='method'><a href="module-project-controller.html#~getProjects">getProjects</a></li><li data-type='method'><a href="module-project-controller.html#~newProject">newProject</a></li><li data-type='method'><a href="module-project-controller.html#~searchCollaborator">searchCollaborator</a></li></ul></li><li><a href="module-src_config_db.html">src/config/db</a><ul class='methods'><li data-type='method'><a href="module-src_config_db.html#~connectionDB">connectionDB</a></li></ul></li><li><a href="module-src_controllers_userController.html">src/controllers/userController</a><ul class='methods'><li data-type='method'><a href="module-src_controllers_userController.html#~checkToken">checkToken</a></li><li data-type='method'><a href="module-src_controllers_userController.html#~confirm">confirm</a></li><li data-type='method'><a href="module-src_controllers_userController.html#~forgotPassword">forgotPassword</a></li><li data-type='method'><a href="module-src_controllers_userController.html#~login">login</a></li><li data-type='method'><a href="module-src_controllers_userController.html#~newPassword">newPassword</a></li><li data-type='method'><a href="module-src_controllers_userController.html#~signUp">signUp</a></li></ul></li><li><a href="module-src_routes_projectRoutes.html">src/routes/projectRoutes</a></li><li><a href="module-src_routes_taskRoutes.html">src/routes/taskRoutes</a></li><li><a href="module-src_routes_userRoutes.html">src/routes/userRoutes</a></li><li><a href="module-task-controller.html">task-controller</a><ul class='methods'><li data-type='method'><a href="module-task-controller.html#~changeStateTask">changeStateTask</a></li><li data-type='method'><a href="module-task-controller.html#~deleteTask">deleteTask</a></li><li data-type='method'><a href="module-task-controller.html#~getTask">getTask</a></li><li data-type='method'><a href="module-task-controller.html#~newTask">newTask</a></li><li data-type='method'><a href="module-task-controller.html#~udpateTask">udpateTask</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#checkAuth">checkAuth</a></li><li><a href="global.html#generateId">generateId</a></li><li><a href="global.html#generateJWT">generateJWT</a></li><li><a href="global.html#projectSchema">projectSchema</a></li><li><a href="global.html#taskScheema">taskScheema</a></li><li><a href="global.html#userSchema">userSchema</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">routes/projectRoutes.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Project routes
+ * @module
+ */
+
+import express, { application } from 'express';
+import {
+	getProjects,
+	newProject,
+	getProject,
+	editProject,
+	deleteProject,
+	searchCollaborator,
+	addCollaborator,
+	deleteCollaborator,
+} from '../controllers/projectController.js';
+import checkAuth from '../middleware/checkAuth.js';
+
+const router = express.Router();
+
+/**
+ * get for get projects and post for new project
+ * @name getProjects-newProjects
+ * @path {get-post} /api/projects/
+ */
+router.route('/').get(checkAuth, getProjects).post(checkAuth, newProject);
+
+/**
+ * get unique project - edit project - delete project
+ * @name getProject-editProject-deleteProject
+ * @path {get-put-delet} /api/projects/:id
+ */
+router
+	.route('/:id')
+	.get(checkAuth, getProject)
+	.put(checkAuth, editProject)
+	.delete(checkAuth, deleteProject);
+
+/**
+ * delete project's collaborator
+ * @name add-Collaborator
+ * @path {post}  /api/projects/collaborators/:id
+ */
+router.post('/collaborators/:id', checkAuth, addCollaborator);
+
+/**
+ * delete project's collaborator
+ * @name search-Collaborator
+ * @path {post}  /api/projects/collaborators
+ */
+router.post('/collaborators', checkAuth, searchCollaborator);
+
+/**
+ * delete project's collaborator
+ * @name deleteCollaborator
+ * @path {post}  /api/projects/delete-collaborator/:id
+ */
+router.post('/delete-collaborator/:id', checkAuth, deleteCollaborator);
+
+export default router;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Thu Aug 18 2022 20:16:05 GMT-0500 (hora estándar de Colombia) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>
