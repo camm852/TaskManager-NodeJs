@@ -7,10 +7,10 @@
 // const express = require('express');
 import express from 'express';
 import dotenv from 'dotenv';
-import connectionDB from './config/db.js';
-import userRoutes from './routes/userRoutes.js';
-import projectRoutes from './routes/projectRoutes.js';
-import taskRoutes from './routes/taskRoutes.js';
+import connectionDB from './src/config/db.js';
+import userRoutes from './src/routes/userRoutes.js';
+import projectRoutes from './src/routes/projectRoutes.js';
+import taskRoutes from './src/routes/taskRoutes.js';
 import cors from 'cors';
 
 //express
