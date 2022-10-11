@@ -4,3 +4,4 @@ node_modules
 *.yml
 Dockerfile
 docs/
+jsdoc.json
